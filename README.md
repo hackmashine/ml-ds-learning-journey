@@ -18,4 +18,4 @@ This is where I keep all my projects and practices, from the first steps in Pyth
 Create a Data Scientist portfolio where you can see the growth from zero to real projects.  
 
 ---
-If an employer came in: give me a chance, I'm learning fast!
+Homework №3 — Titanic Survival Prediction.
