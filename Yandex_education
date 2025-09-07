@@ -1,0 +1,304 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/hackmashine/ml-ds-learning-journey/blob/main/Yandex_education\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "def construct_matrix (first_array, second_array):\n",
+        "\n",
+        " combined = np.concatenate([first_array, second_array])\n",
+        " n= len(first_array)\n",
+        " return combined.reshape(n, 2, order='F')"
+      ],
+      "metadata": {
+        "id": "MA8qNGDklXSW"
+      },
+      "execution_count": 1,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "a = np.array([1,2])\n",
+        "b = np.array([3,4])\n",
+        "\n",
+        "result = construct_matrix(a,b)   # ← нет лишних пробелов в начале!\n",
+        "print(result)"
+      ],
+      "metadata": {
+        "id": "iFt96RthmR8x",
+        "outputId": "2943420b-3adb-4e80-abe4-85dbce9861c0",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[1 3]\n",
+            " [2 4]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "def construct_matrix(first_array, second_array,third_array):\n",
+        "\n",
+        "\n",
+        "    # Объединяем массивы в один вектор: [a0, a1, ..., an, b0, b1, ..., bn]\n",
+        "    combined = np.concatenate([first_array, second_array,third_array])\n",
+        "\n",
+        "    # Переформируем в матрицу n x 2, используя Fortran-порядок (по столбцам)\n",
+        "    n = len(first_array)\n",
+        "    return combined.reshape(n, 3, order='F')"
+      ],
+      "metadata": {
+        "id": "8B9Dx98UhjUA"
+      },
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "a = np.array([1, 2, 4])\n",
+        "b = np.array([3, 4, 6])\n",
+        "c = np.array([9, 8, 7])  # ← добавляем третий массив\n",
+        "\n",
+        "result = construct_matrix(a, b, c)\n",
+        "print(result)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Fsxv_yzShk2a",
+        "outputId": "811ea5b5-bf1c-4f69-d285-fd2b52aead95"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[1 3 9]\n",
+            " [2 4 8]\n",
+            " [4 6 7]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def construct_matrix(*arrays):\n",
+        "    \"\"\"\n",
+        "    Construct matrix from any number of 1D arrays.\n",
+        "    Each array becomes a column.\n",
+        "    All arrays must have the same length.\n",
+        "    \"\"\"\n",
+        "    if len(arrays) == 0:\n",
+        "        return np.array([]).reshape(0, 0)\n",
+        "\n",
+        "    n = len(arrays[0])\n",
+        "    combined = np.concatenate(arrays)\n",
+        "    return combined.reshape(n, len(arrays), order='F')"
+      ],
+      "metadata": {
+        "id": "CSv_WgY_kByk"
+      },
+      "execution_count": 5,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "a = np.array([1,2,3])\n",
+        "b = np.array([4,5,6])\n",
+        "c = np.array([7,8,9])\n",
+        "d = np.array([0,0,0])\n",
+        "\n",
+        "\n",
+        "print(construct_matrix(a, b, c))       # → 3x3\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "mCoBftd4kDiU",
+        "outputId": "df8b804a-57fc-4589-b58a-7cb19786c138"
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[1 4 7]\n",
+            " [2 5 8]\n",
+            " [3 6 9]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "# Создаём матрицу 3x3\n",
+        "matrix = np.array([\n",
+        "    [1, 4, 7],\n",
+        "    [2, 5, 8],\n",
+        "    [3, 6, 9]\n",
+        "])"
+      ],
+      "metadata": {
+        "id": "eLpcgpNIkh2x"
+      },
+      "execution_count": 7,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "det = np.linalg.det(matrix)\n",
+        "print(\"Определитель через NumPy:\", det)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "rZmwTW1tkrZ2",
+        "outputId": "50f69362-fed9-41dc-c476-e58fb994f925"
+      },
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Определитель через NumPy: 0.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "# Шаг 1: Создать матрицу 3x3\n",
+        "a = np.array([1, 2, 3])\n",
+        "b = np.array([0, 1, 4])\n",
+        "c = np.array([5, 6, 0])\n",
+        "\n",
+        "matrix = np.column_stack([a, b, c])  # или construct_matrix(a, b, c)\n",
+        "print(\"Матрица 3x3:\")\n",
+        "print(matrix)\n",
+        "\n",
+        "# Шаг 2: Посчитать определитель по Саррюсу\n",
+        "a1, b1, c1 = matrix[0]\n",
+        "a2, b2, c2 = matrix[1]\n",
+        "a3, b3, c3 = matrix[2]\n",
+        "\n",
+        "det_sarrus = (a1*b2*c3 + b1*c2*a3 + c1*a2*b3) - (a3*b2*c1 + b3*c2*a1 + c3*a2*b1)\n",
+        "det_numpy = np.linalg.det(matrix)\n",
+        "\n",
+        "print(\"По Саррюсу:\", det_sarrus)\n",
+        "print(\"Через NumPy:\", det_numpy)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "BwpjTilNkzMX",
+        "outputId": "6eb72cf1-798f-4275-8141-7cc69330dd43"
+      },
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Матрица 3x3:\n",
+            "[[1 0 5]\n",
+            " [2 1 6]\n",
+            " [3 4 0]]\n",
+            "По Саррюсу: 1\n",
+            "Через NumPy: 0.9999999999999967\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "# Исходная матрица\n",
+        "A = np.array([\n",
+        "    [1, 0, 5],\n",
+        "    [2, 1, 6],\n",
+        "    [3, 4, 0]\n",
+        "])\n",
+        "\n",
+        "# Находим обратную матрицу\n",
+        "A_inv = np.linalg.inv(A)\n",
+        "\n",
+        "print(\"Обратная матрица:\")\n",
+        "print(A_inv)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "1_MKKhO_lKqd",
+        "outputId": "f792175b-6aa0-458d-a534-73799efd0635"
+      },
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Обратная матрица:\n",
+            "[[-24.  20.  -5.]\n",
+            " [ 18. -15.   4.]\n",
+            " [  5.  -4.   1.]]\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
